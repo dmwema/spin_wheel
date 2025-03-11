@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Roue de chance</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="logo-section">
+            <img alt="25-years" src="25.png" width="200">
+        </div>
+        <div class="spinBtn">
+            <img alt="logo" src="logo.png" width="40">
+        </div>
+        <div class="wheel-container">
+            <div class="wheel">
+                <div class="number" style="--i:1;--clr:#ee7d00">
+                    <span>1</span>
+                </div>
+                <div class="number" style="--i:2;--clr:#00b1b2">
+                    <span>2</span>
+                </div>
+                <div class="number" style="--i:3;--clr:#fcd672">
+                    <span>3</span>
+                </div>
+                <div class="number" style="--i:4;--clr:#4c45f5">
+                    <span>4</span>
+                </div>
+                <div class="number" style="--i:5;--clr:#f9e117">
+                    <span>5</span>
+                </div>
+                <div class="number" style="--i:6;--clr:#95d4e9">
+                    <span>6</span>
+                </div>
+                <div class="number" style="--i:7;--clr:#4cb060">
+                    <span>7</span>
+                </div>
+                <div class="number" style="--i:8;--clr:#ef415c">
+                    <span>8</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let wheel = document.querySelector('.wheel');
+        let spinBtn = document.querySelector('.spinBtn');
+        let value = Math.ceil(Math.random() * 3600 * 5);
+        let isSpinning = false;
+
+        function spinWheel() {
+            if (!isSpinning) {
+                isSpinning = true;
+                wheel.classList.remove('slow-down'); 
+                wheel.style.transform = "rotate(" + value + "deg)";
+                value += Math.ceil(Math.random() * 3600);
+
+                // Ajoutez la classe de ralentissement après 5 secondes
+                setTimeout(() => {
+                    wheel.classList.add('slow-down');
+                    isSpinning = false; // Réinitialisez l'état de rotation
+                }, 5000); 
+            }
+        }
+
+        spinBtn.onclick = spinWheel; // Action au clic
+
+        document.addEventListener('keydown', function(event) {
+            if (event.code === 'Space') {
+                event.preventDefault(); // Empêche le défilement de la page
+                spinWheel();
+            }
+        });
+    </script>
+</body>
+</html>
